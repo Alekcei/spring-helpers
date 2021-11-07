@@ -14,21 +14,31 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
 //	implementation 'org.springframework.boot:spring-boot-starter'
 //  testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
 test {
 	useJUnitPlatform()
 }
+//publishing {
+//	publications {
+//		maven(MavenPublication) {
+//			groupId = group
+//			artifactId = 'library'
+//			version = version
+//
+//			from components.java
+//		}
+//	}
+//}
 publishing {
 	publications {
-		maven(MavenPublication) {
-			groupId = group
-			artifactId = 'library'
-			version = version
-
+		mavenJava(MavenPublication) {
 			from components.java
 		}
 	}
